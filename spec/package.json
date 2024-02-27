@@ -1,0 +1,21 @@
+{
+  "name": "spec",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "compile": "tsp compile .",
+    "compile:dev": "tsp compile . --watch",
+    "prelint": "npm run compile",
+    "lint": "spectral lint -r .spectral.yaml openapi/openapi.yaml"
+  },
+  "dependencies": {
+    "@typespec/compiler": "latest",
+    "@typespec/http": "latest",
+    "@typespec/openapi3": "latest",
+    "@typespec/rest": "latest"
+  },
+  "private": true,
+  "devDependencies": {
+    "@stoplight/spectral-cli": "^6.11.0"
+  }
+}
