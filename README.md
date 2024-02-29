@@ -13,7 +13,7 @@ The project consists of 3 components:
   be found in that project's [README][spec-readme].
 
 - [Server][] -- A simple Rails API-only application that exposes endpoints for
-  managing blog posts. It uses the [generated OpenAPI spec][generated-soec]
+  managing blog posts. It uses the [generated OpenAPI spec][generated-spec]
   along with the [`committee`][committee] middleware to validate incoming
   requests and, in non-production environments, outgoing responses to ensure
   they conform to the spec. See the [README][server-readme] for details.
@@ -49,4 +49,5 @@ cd client && yarn && yarn cli --help
 [server-readme]: ./server/README.md
 [Typescript]: https://www.typescriptlang.org/
 [Client]: ./client
+[sta]: https://github.com/acacode/swagger-typescript-api
 [client-readme]: ./client/README.md
