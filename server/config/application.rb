@@ -61,6 +61,7 @@ module BlogOpenapi
                             schema_path: openapi_schema_file,
                             strict_reference_validation: true,
                             validate_success_only: false,
+                            raise: true,
                             strict: true
     end
   end
