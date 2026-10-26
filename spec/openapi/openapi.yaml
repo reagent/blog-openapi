@@ -7,6 +7,7 @@ info:
     email: user@host.example
 tags:
   - name: post
+  - name: user
 paths:
   /posts:
     get:
@@ -238,11 +239,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /users:
+    get:
+      tags:
+        - user
+      operationId: user-list
+      description: Get a collection of users
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
 security:
   - BasicAuth: []
   - BearerAuth: []
 components:
   schemas:
+    Email:
+      type: string
+      format: email
     Error:
       type: object
       required:
@@ -301,6 +319,29 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Post'
+    User:
+      type: object
+      required:
+        - id
+        - email
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+        email:
+          $ref: '#/components/schemas/Email'
+    Users:
+      type: object
+      required:
+        - total
+        - users
+      properties:
+        total:
+          type: integer
+          format: int32
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
   securitySchemes:
     BasicAuth:
       type: http

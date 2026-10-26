@@ -9,6 +9,9 @@
  * ---------------------------------------------------------------
  */
 
+/** @format email */
+export type Email = string;
+
 export interface Error {
   message: string;
 }
@@ -38,6 +41,17 @@ export interface Posts {
   /** @format int32 */
   total: number;
   posts: Post[];
+}
+
+export interface User {
+  id: ID;
+  email: Email;
+}
+
+export interface Users {
+  /** @format int32 */
+  total: number;
+  users: User[];
 }
 
 import type {
@@ -354,6 +368,24 @@ export class Api<
       this.request<Post, Error>({
         path: `/posts/${id}/unpublish`,
         method: 'PATCH',
+        secure: true,
+        format: 'json',
+        ...params,
+      }),
+  };
+  users = {
+    /**
+     * @description Get a collection of users
+     *
+     * @tags user
+     * @name UserList
+     * @request GET:/users
+     * @secure
+     */
+    userList: (params: RequestParams = {}) =>
+      this.request<Users, any>({
+        path: `/users`,
+        method: 'GET',
         secure: true,
         format: 'json',
         ...params,
