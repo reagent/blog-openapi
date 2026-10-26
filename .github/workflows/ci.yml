@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  spec-and-client:
+    name: Spec and client
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install spec dependencies
+        working-directory: spec
+        run: npm ci
+
+      # `lint` compiles the spec first (`prelint`), then runs Spectral
+      - name: Compile and lint spec
+        working-directory: spec
+        run: npm run lint
+
+      - name: Install client dependencies
+        working-directory: client
+        run: yarn install --frozen-lockfile
+
+      - name: Regenerate client
+        working-directory: client
+        run: yarn client:generate
+
+      - name: Check generated files are up to date
+        run: git diff --exit-code -- spec/openapi client/src/openapi.ts
+
+      - name: Type-check client
+        working-directory: client
+        run: npx tsc --noEmit -p .
+
+  server:
+    name: Server tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server
+    env:
+      RAILS_ENV: test
+      AUTH_BASIC_USERNAME: admin
+      AUTH_BASIC_PASSWORD: password
+      AUTH_BEARER_TOKEN: token
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          working-directory: server
+          bundler-cache: true
+
+      - name: Run tests
+        run: bin/rails db:test:prepare test
