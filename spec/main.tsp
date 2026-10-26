@@ -8,6 +8,9 @@ using TypeSpec.OpenAPI;
 
 scalar ID extends int32;
 
+@format("email")
+scalar Email extends string;
+
 @error
 model Error {
   message: string;
@@ -50,6 +53,16 @@ model PostCreate {
 model PostUpdate {
   title?: string;
   body?: string;
+}
+
+model User {
+  id: ID;
+  email: Email;
+}
+
+model Users {
+  total: int32;
+  users: Array<User>;
 }
 
 model Posts {
@@ -121,5 +134,15 @@ namespace BlogService {
     @operationId("post-unpublish")
     @doc("Unset publish date of post")
     op unpublish(@path id: ID): OK<Post> | NotFound | Unauthorized;
+  }
+
+  @route("users")
+  @tag("user")
+  namespace UserEndpoints {
+    @get
+    @route("")
+    @operationId("user-list")
+    @doc("Get a collection of users")
+    op list(): OK<Users>;
   }
 }
