@@ -9,13 +9,14 @@
     "lint": "spectral lint -r .spectral.yaml openapi/openapi.yaml"
   },
   "dependencies": {
-    "@typespec/compiler": "latest",
-    "@typespec/http": "latest",
-    "@typespec/openapi3": "latest",
-    "@typespec/rest": "latest"
+    "@typespec/compiler": "1.17.0",
+    "@typespec/http": "1.17.0",
+    "@typespec/openapi": "1.17.0",
+    "@typespec/openapi3": "1.17.0",
+    "@typespec/rest": "0.87.0"
   },
   "private": true,
   "devDependencies": {
-    "@stoplight/spectral-cli": "^6.11.0"
+    "@stoplight/spectral-cli": "6.17.0"
   }
 }
