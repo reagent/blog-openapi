@@ -57,14 +57,10 @@ model Posts {
   posts: Array<Post>;
 }
 
-@service({
-  title: "Blog API",
+@service(#{ title: "Blog API" })
+@info(#{
   version: "2024-02-22",
-})
-@info({
-  contact: {
-    email: "user@host.example",
-  },
+  contact: #{ email: "user@host.example" },
 })
 @server("http://localhost:3000", "Localhost")
 @doc("API service to manage blog posts")
