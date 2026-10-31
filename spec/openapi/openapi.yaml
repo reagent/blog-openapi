@@ -1,17 +1,15 @@
 openapi: 3.0.0
 info:
   title: Blog API
-  version: 2024-02-22
-  description: API service to manage blog posts
+  version: '2024-02-22'
   contact:
     email: user@host.example
+  description: API service to manage blog posts
 tags:
   - name: post
 paths:
   /posts:
     get:
-      tags:
-        - post
       operationId: post-list
       description: List all posts available
       parameters: []
@@ -28,9 +26,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    post:
       tags:
         - post
+    post:
       operationId: post-create
       description: Create a new post
       parameters: []
@@ -59,6 +57,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      tags:
+        - post
       requestBody:
         required: true
         content:
@@ -72,8 +72,6 @@ paths:
                 - post
   /posts/{id}:
     get:
-      tags:
-        - post
       operationId: post-fetch
       description: Fetch a single post
       parameters:
@@ -95,9 +93,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    patch:
       tags:
         - post
+    patch:
       operationId: post-update
       description: Update existing post
       parameters:
@@ -137,6 +135,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      tags:
+        - post
       requestBody:
         required: true
         content:
@@ -146,9 +146,9 @@ paths:
               properties:
                 post:
                   $ref: '#/components/schemas/PostUpdate'
+              required:
+                - post
     delete:
-      tags:
-        - post
       operationId: post-destroy
       description: Destroy existing post
       parameters:
@@ -176,10 +176,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /posts/{id}/publish:
-    patch:
       tags:
         - post
+  /posts/{id}/publish:
+    patch:
       operationId: post-publish
       description: Set publish date of post to now
       parameters:
@@ -207,10 +207,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /posts/{id}/unpublish:
-    patch:
       tags:
         - post
+  /posts/{id}/unpublish:
+    patch:
       operationId: post-unpublish
       description: Unset publish date of post
       parameters:
@@ -238,6 +238,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      tags:
+        - post
 security:
   - BasicAuth: []
   - BearerAuth: []
@@ -304,10 +306,10 @@ components:
   securitySchemes:
     BasicAuth:
       type: http
-      scheme: basic
+      scheme: Basic
     BearerAuth:
       type: http
-      scheme: bearer
+      scheme: Bearer
 servers:
   - url: http://localhost:3000
     description: Localhost

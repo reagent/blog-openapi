@@ -206,7 +206,7 @@ class PostsTest < ActionDispatch::IntegrationTest
   class PostsUpdateTest < PostsTest
     test 'PATCH :update responds with 401 when no credentials provided' do
       post = create(:post)
-      patch "/posts/#{post.id}", {}
+      patch "/posts/#{post.id}", { post: { title: 'New Title' } }
 
       assert_response 401
       assert_equal(
